@@ -4,11 +4,11 @@ import {getAuth,GoogleAuthProvider} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
-  authDomain: "rankupai.firebaseapp.com",
-  projectId: "rankupai",
-  storageBucket: "rankupai.firebasestorage.app",
-  messagingSenderId: "534087683073",
-  appId: "1:534087683073:web:e3cdb17151135648750400"
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 

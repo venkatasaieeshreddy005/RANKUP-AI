@@ -29,11 +29,11 @@ function Auth({ isModal = false }) {
         { withCredentials: true }
       );
 
-      // Safe extraction of nested user object from response payload
+      
       const userPayload =
         result.data?.user || result.data?.userData || result.data;
 
-      // Immediately sync state with Redux store
+      
       dispatch(setUserData(userPayload));
     } catch (error) {
       console.log("Auth Error:", error);

@@ -113,7 +113,7 @@ function Home() {
       <Navbar />
 
       <main className="flex-1 flex flex-col items-center px-4 sm:px-6 pt-8 sm:pt-12 pb-24 max-w-7xl mx-auto w-full">
-        {/* Top AI Badge */}
+      
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -128,7 +128,7 @@ function Home() {
           </div>
         </motion.div>
 
-        {/* Hero Content */}
+       
         <div className="text-center max-w-3xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
@@ -175,7 +175,7 @@ function Home() {
           </motion.div>
         </div>
 
-        {/* Feature Steps Cards Grid */}
+       
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-14 mb-28 px-2">
           {STEPS.map((item, index) => (
             <motion.div
@@ -187,12 +187,12 @@ function Home() {
               whileHover={{ y: -5 }}
               className="group relative bg-white border border-gray-200/90 rounded-3xl p-7 shadow-xs hover:border-emerald-300/80 transition-all duration-200 flex flex-col justify-between overflow-hidden"
             >
-              {/* Soft Gradient Overlay on Hover */}
+             
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-3xl">
                 <div className="absolute -inset-1.5 bg-gradient-to-r from-emerald-100/40 to-emerald-50/20 blur-md" />
               </div>
 
-              {/* Card Content */}
+          
               <div className="relative z-10">
                 <div className="flex items-center justify-between mb-6">
                   <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center text-xl group-hover:scale-105 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-200">
@@ -213,13 +213,13 @@ function Home() {
                 </p>
               </div>
 
-              {/* Decorative Corner Glow */}
+            
               <div className="absolute -bottom-8 -right-8 w-28 h-28 bg-emerald-500/5 rounded-full blur-xl group-hover:scale-125 transition-transform duration-300 pointer-events-none" />
             </motion.div>
           ))}
         </div>
 
-        {/* Advanced AI Capabilities Section (Shortened Cards) */}
+       
         <div className="w-full mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -243,14 +243,14 @@ function Home() {
                 whileHover={{ y: -4 }}
                 className="group relative bg-white border border-gray-200/90 rounded-2xl p-5 sm:p-6 shadow-xs hover:border-emerald-300/80 transition-all duration-300 overflow-hidden"
               >
-                {/* Soft Gradient Overlay on Hover */}
+                
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl">
                   <div className="absolute -inset-1.5 bg-gradient-to-r from-emerald-100/40 to-emerald-50/20 blur-md" />
                 </div>
 
-                {/* Card Interior Flex Layout */}
+              
                 <div className="relative z-10 flex flex-col md:flex-row items-center gap-4 sm:gap-6">
-                  {/* Left Column: Image Preview */}
+                 
                   <div className="w-full md:w-5/12 flex justify-center items-center">
                     <img
                       src={item.image}
@@ -259,7 +259,7 @@ function Home() {
                     />
                   </div>
 
-                  {/* Right Column: Icon + Text Content */}
+                  
                   <div className="w-full md:w-7/12 flex flex-col justify-center">
                     <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center mb-3 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-200">
                       {item.icon}
@@ -275,14 +275,14 @@ function Home() {
                   </div>
                 </div>
 
-                {/* Decorative Corner Glow */}
+                
                 <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:scale-125 transition-transform duration-300 pointer-events-none" />
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Multiple Interview Modes Section */}
+        
         <div className="w-full mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -306,14 +306,14 @@ function Home() {
                 whileHover={{ y: -4 }}
                 className="group relative bg-white border border-gray-200/90 rounded-2xl p-5 sm:p-6 shadow-xs hover:border-emerald-300/80 transition-all duration-300 overflow-hidden"
               >
-                {/* Soft Gradient Overlay on Hover */}
+               
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-2xl">
                   <div className="absolute -inset-1.5 bg-gradient-to-r from-emerald-100/40 to-emerald-50/20 blur-md" />
                 </div>
 
-                {/* Card Interior Flex Layout */}
+                
                 <div className="relative z-10 flex flex-col md:flex-row items-center gap-4 sm:gap-6">
-                  {/* Left Column: Image Preview */}
+                 
                   <div className="w-full md:w-5/12 flex justify-center items-center">
                     <img
                       src={item.image}
@@ -322,7 +322,7 @@ function Home() {
                     />
                   </div>
 
-                  {/* Right Column: Icon + Text Content */}
+
                   <div className="w-full md:w-7/12 flex flex-col justify-center">
                     <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center mb-3 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-200">
                       {item.icon}
@@ -338,7 +338,7 @@ function Home() {
                   </div>
                 </div>
 
-                {/* Decorative Corner Glow */}
+                
                 <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:scale-125 transition-transform duration-300 pointer-events-none" />
               </motion.div>
             ))}
