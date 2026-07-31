@@ -1,23 +1,24 @@
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 import { setUserData } from "./redux/userSlice";
 import Home from "./pages/Home.jsx";
 import Auth from "./pages/Auth.jsx";
-import { useDispatch } from "react-redux";
+import InterviewPage from "./pages/InterviewPage.jsx";
 
 export const serverUrl = "http://localhost:8000";
 
 function App() {
-
-  const dispatch=useDispatch()
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const getCurrentUser = async (req,res) => {
+    const getCurrentUser = async () => {
       try {
-        const result = await axios.get(`${serverUrl}/api/user/currentuser`,{withCredentials: true,});
-        
+        const result = await axios.get(`${serverUrl}/api/user/currentuser`, {
+          withCredentials: true,
+        });
+
         dispatch(setUserData(result.data));
       } catch (error) {
         console.error(
@@ -36,6 +37,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/auth" element={<Auth />} />
+      <Route path="/interview" element={<InterviewPage />} />
     </Routes>
   );
 }

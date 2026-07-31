@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const authRouter=require("./routes/authroute.js");
 const userRoute=require("./routes/userroute.js");
+const interviewRouter=require("./routes/interview.js")
 
 
 connectdb();
@@ -38,6 +39,7 @@ app.use(cookieParser());
 
 app.use("/api/auth",authRouter);
 app.use("/api/user",userRoute);
+app.use("/api/interview",interviewRouter);
 
 
 // app.get("/",(req,res)=>{
