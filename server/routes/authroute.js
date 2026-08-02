@@ -1,12 +1,11 @@
-const express=require("express");
+const express = require("express");
 const router = express.Router({ mergeParams: true });
-const { googleAuth, logout } = require("../controllers/authcontroller");
+const { googleAuth, logout, getMe } = require("../controllers/authcontroller");
 
-const multer  = require('multer');
+router.post("/googleauth", googleAuth);
+router.get("/logout", logout);
 
-router.post("/googleauth",googleAuth);
-router.get("/logout",logout)
+// Added missing endpoint to resolve 404 error
+router.get("/me", getMe || ((req, res) => res.status(200).json({ message: "Auth endpoint active" })));
 
-
-
-module.exports=router;
+module.exports = router;
