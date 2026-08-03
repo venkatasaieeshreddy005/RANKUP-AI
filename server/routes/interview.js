@@ -6,6 +6,8 @@ const {
   generateQuestion,
   submitAnswer,
   finishInterview,
+  getMyInterview,
+  getInterviewReport,
 } = require("../controllers/interview");
 
 const { isAuth } = require("../middleware/isAuth");
@@ -25,5 +27,7 @@ router.post("/resume", isAuth, upload.single("resume"), analyzeResume);
 router.post("/generate-questions", isAuth, generateQuestion);
 router.post("/submit-answer", isAuth, submitAnswer);
 router.post("/finish", isAuth, finishInterview);
+router.get("/my-interview", isAuth, getMyInterview);
+router.get("/report/:id", isAuth, getInterviewReport);
 
 module.exports = router;

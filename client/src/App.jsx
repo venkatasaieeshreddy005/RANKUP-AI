@@ -6,6 +6,10 @@ import { setUserData } from "./redux/userSlice";
 import Home from "./pages/Home.jsx";
 import Auth from "./pages/Auth.jsx";
 import InterviewPage from "./pages/InterviewPage.jsx";
+import Pricing from "./pages/Pricing.jsx";
+import interviewHistory from "./pages/interviewHistory.jsx";
+import interviewReport from "./pages/interviewReport.jsx";
+
 
 export const serverUrl = "http://localhost:8000";
 
@@ -38,6 +42,9 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/interview" element={<InterviewPage />} />
+      <Route path="/report" element={<interviewReport />} />
+      <Route path="/history" element={<interviewHistory />} />
+      <Route path="/pricing" element={<Pricing />} />
     </Routes>
   );
 }

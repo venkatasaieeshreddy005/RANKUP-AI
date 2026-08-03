@@ -59,7 +59,6 @@ exports.generateQuestion = async (req, res) => {
       return res.status(400).json({ message: "Role, Experience and Mode are required." });
     }
 
-    // Fixed Mongoose deprecation: use returnDocument instead of new: true
     const user = await User.findOneAndUpdate(
       { _id: req.userId, credits: { $gte: 100 } },
       { $inc: { credits: -100 } },
@@ -103,7 +102,6 @@ exports.generateQuestion = async (req, res) => {
       return res.status(500).json({ message: "AI returned empty response." });
     }
 
-    // Extract questions line by line from plain text AI output
     const questionsArray = aiResponse
       .split("\n")
       .map((q) => q.replace(/^[0-9]+[\.\)]\s*/, "").trim())
@@ -186,7 +184,6 @@ exports.submitAnswer = async (req, res) => {
     const messages = buildEvaluationMessages(question, answer);
     const aiResponse = await askAi(messages);
 
-    // Remove code block backticks if returned by DeepSeek
     const cleanedJson = aiResponse.replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(cleanedJson);
 
@@ -262,5 +259,63 @@ exports.finishInterview = async (req, res) => {
   } catch (error) {
     console.error("Finish Interview Error:", error);
     return res.status(500).json({ message: error.message || "Failed to finalize interview." });
+  }
+};
+
+exports.getMyInterview = async (req, res) => {
+  try {
+    const interview = await Interview.findOne({ userId: req.userId })
+      .sort({ createdAt: -1 })
+      .select("role experience mode finalScore status createdAt");
+
+    if (!interview) {
+      return res.status(404).json({
+        message: "No interview found for this user",
+      });
+    }
+
+    return res.status(200).json(interview);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Failed to find current user interview: ${error.message}`,
+    });
+  }
+};
+
+exports.getInterviewReport = async (req, res) => {
+  try {
+    const interview = await Interview.findById(req.params.id);
+
+    if (!interview) {
+      return res.status(404).json({ message: "Interview not found" });
+    }
+
+    const totalQuestions = interview.questions.length;
+
+    let totalConfidence = 0;
+    let totalCommunication = 0;
+    let totalCorrectness = 0;
+
+    interview.questions.forEach((q) => {
+      totalConfidence += q.confidence || 0;
+      totalCommunication += q.communication || 0;
+      totalCorrectness += q.correctness || 0;
+    });
+
+    const avgConfidence = totalQuestions ? totalConfidence / totalQuestions : 0;
+    const avgCommunication = totalQuestions ? totalCommunication / totalQuestions : 0;
+    const avgCorrectness = totalQuestions ? totalCorrectness / totalQuestions : 0;
+
+    return res.json({
+      finalScore: interview.finalScore,
+      confidence: Number(avgConfidence.toFixed(1)),
+      communication: Number(avgCommunication.toFixed(1)),
+      correctness: Number(avgCorrectness.toFixed(1)),
+      questionWiseScore: interview.questions,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Failed to find currentUser Interview: ${error.message}`,
+    });
   }
 };
