@@ -51,28 +51,9 @@ score:{
 },
 
 
-confidence:{
-    type:Number,
-    default:0,
-    min:0,
-    max:100
-},
-
-
-communication:{
-    type:Number,
-    default:0,
-    min:0,
-    max:100
-},
-
-
-correctness:{
-    type:Number,
-    default:0,
-    min:0,
-    max:100
-}
+confidence: { type: Number, default: 0, min: 0, max: 10 },
+communication: { type: Number, default: 0, min: 0, max: 10 },
+correctness: { type: Number, default: 0, min: 0, max: 10 },
 
 
 },

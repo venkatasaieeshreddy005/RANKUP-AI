@@ -27,6 +27,8 @@ router.post("/resume", isAuth, upload.single("resume"), analyzeResume);
 router.post("/generate-questions", isAuth, generateQuestion);
 router.post("/submit-answer", isAuth, submitAnswer);
 router.post("/finish", isAuth, finishInterview);
+
+// Endpoints matching frontend calls
 router.get("/my-interview", isAuth, getMyInterview);
 router.get("/report/:id", isAuth, getInterviewReport);
 

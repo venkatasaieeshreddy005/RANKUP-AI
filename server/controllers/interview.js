@@ -166,7 +166,7 @@ exports.submitAnswer = async (req, res) => {
       question.feedback = "You did not submit an answer.";
 
       await interview.save();
-      return res.status(200).json({ feedback: question.feedback });
+      return res.status(200).json({ feedback: question.feedback, score: 0 });
     }
 
     if (timeTaken > question.timeLimit) {
@@ -178,7 +178,7 @@ exports.submitAnswer = async (req, res) => {
       question.feedback = "Time limit exceeded. Answer not evaluated.";
 
       await interview.save();
-      return res.status(200).json({ feedback: question.feedback });
+      return res.status(200).json({ feedback: question.feedback, score: 0 });
     }
 
     const messages = buildEvaluationMessages(question, answer);
@@ -187,18 +187,28 @@ exports.submitAnswer = async (req, res) => {
     const cleanedJson = aiResponse.replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(cleanedJson);
 
+    // The AI is intentionally NOT asked for finalScore (see evaluationPrompt.js),
+    // so we calculate it ourselves from the three sub-scores it does return.
+    const confidence = Number(parsed.confidence) || 0;
+    const communication = Number(parsed.communication) || 0;
+    const correctness = Number(parsed.correctness) || 0;
+
+    const finalScore = Number(
+      ((confidence + communication + correctness) / 3).toFixed(1)
+    );
+
     question.answer = answer;
-    question.confidence = parsed.confidence || 0;
-    question.communication = parsed.communication || 0;
-    question.correctness = parsed.correctness || 0;
-    question.score = parsed.finalScore || 0;
+    question.confidence = confidence;
+    question.communication = communication;
+    question.correctness = correctness;
+    question.score = finalScore;
     question.feedback = parsed.feedback || "";
 
     await interview.save();
 
     return res.status(200).json({
       feedback: parsed.feedback,
-      score: parsed.finalScore,
+      score: finalScore,
     });
   } catch (error) {
     console.error("Submit Answer Error:", error);
@@ -264,7 +274,7 @@ exports.finishInterview = async (req, res) => {
 
 exports.getMyInterview = async (req, res) => {
   try {
-    const interview = await Interview.findOne({ userId: req.userId })
+    const interview = await Interview.find({ userId: req.userId })
       .sort({ createdAt: -1 })
       .select("role experience mode finalScore status createdAt");
 
